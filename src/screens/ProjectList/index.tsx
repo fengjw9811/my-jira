@@ -11,7 +11,7 @@ export default function ProjectList() {
         name: '',
         personId: ''
     })
-    const debouncedParam = useDebounce(param, 2000)
+    const debouncedParam = useDebounce(param, 500)
     const [list, setList] = useState([])
 
     useEffect(() => {
