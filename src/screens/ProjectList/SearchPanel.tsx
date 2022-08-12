@@ -13,6 +13,7 @@ export interface User {
     email: string
     title: string
     organization: string
+    token: string
 }
 
 export default function SearchPanel({ param, setParam, users }: ISearchPanel) {
