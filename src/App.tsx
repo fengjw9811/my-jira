@@ -3,7 +3,7 @@ import React from 'react'
 import { AuthticatedApp } from 'authenticated-app'
 import { UnauthenticatedApp } from 'unauthenticated-app'
 import './App.css'
-import { ErrorBoundary } from 'components/err-boundary'
+import { ErrorBoundary } from 'components/ErrorBoundary'
 import { FullPageErrorCallBack } from './components/lib'
 
 function App() {
