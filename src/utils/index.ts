@@ -4,14 +4,16 @@ export const isFalsy = (value: any) => {
     return value === 0 ? false : !value
 }
 
+export const isVoid = (value: unknown) => {
+    return value === undefined || value === null || value === ''
+}
+
 //清除对象的空属性
-export const cleanObject = (object: object) => {
+export const cleanObject = (object: { [key: string]: unknown }) => {
     const result = { ...object }
     Object.keys(result).forEach((key) => {
-        // @ts-ignore
         const value = result[key]
-        if (isFalsy(value)) {
-            // @ts-ignore
+        if (isVoid(value)) {
             delete result[key]
         }
     })

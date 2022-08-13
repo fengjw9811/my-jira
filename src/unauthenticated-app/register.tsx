@@ -1,9 +1,9 @@
 import { useAuth } from 'context/auth-context'
-import React, { FormEvent } from 'react'
-import { Button, Form, Input } from 'antd'
+import { Form, Input } from 'antd'
+import { LongButton } from 'unauthenticated-app'
 
 export default function RegisterScreen() {
-    const { register, user } = useAuth()
+    const { register } = useAuth()
 
     const handleSubmit = (values: { username: string; password: string }) => {
         register(values)
@@ -17,9 +17,9 @@ export default function RegisterScreen() {
                 <Input placeholder="密码" type="password" id="password" />
             </Form.Item>
             <Form.Item>
-                <Button htmlType="submit" type="primary">
+                <LongButton htmlType="submit" type="primary">
                     注册
-                </Button>
+                </LongButton>
             </Form.Item>
         </Form>
     )
