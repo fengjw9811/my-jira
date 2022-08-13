@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 export const isFalsy = (value: any) => {
     return value === 0 ? false : !value
@@ -38,7 +38,7 @@ export const useDebounce = <V>(value: V, delay?: number) => {
 }
 
 export const useDocumentTitle = (title: string, keepOnUnmount: boolean = true) => {
-    const oldTitle = document.title
+    const oldTitle = useRef(document.title).current
     useEffect(() => {
         document.title = title
     }, [title])
@@ -49,5 +49,7 @@ export const useDocumentTitle = (title: string, keepOnUnmount: boolean = true) =
                 document.title = oldTitle
             }
         }
-    }, [])
+    }, [keepOnUnmount, oldTitle])
 }
+
+export const resetRoute = () => (window.location.href = window.location.origin)
