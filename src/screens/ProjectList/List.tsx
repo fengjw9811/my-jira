@@ -1,13 +1,12 @@
-import { Table } from 'antd'
+import { Table, TableProps } from 'antd'
 import dayjs from 'dayjs'
 import { User } from './SearchPanel'
 
-interface IList {
-    list: Project[]
+interface IList extends TableProps<Project> {
     users: User[]
 }
 
-interface Project {
+export interface Project {
     id: string
     name: string
     personId: string
@@ -16,9 +15,10 @@ interface Project {
     created: number
 }
 
-export default function List({ list, users }: IList) {
+export default function List({ users, ...props }: IList) {
     return (
         <Table
+            loading
             pagination={false}
             columns={[
                 {
@@ -43,7 +43,7 @@ export default function List({ list, users }: IList) {
                     }
                 }
             ]}
-            dataSource={list}
+            {...props}
         ></Table>
     )
 }
