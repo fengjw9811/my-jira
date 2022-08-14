@@ -6,8 +6,9 @@ import { Button, Typography } from 'antd'
 import { useProjects } from 'utils/project'
 import { useUsers } from 'utils/user'
 import { useProjectsSearchParams } from './util'
+import { Row } from 'components/lib'
 
-export default function ProjectListScreen() {
+export default function ProjectListScreen(props: { projectButton: JSX.Element }) {
     const [param, setParam] = useProjectsSearchParams()
     const { isLoading, error, data: list, retry } = useProjects(useDebounce(param, 500))
     const { data: users } = useUsers()
@@ -15,10 +16,19 @@ export default function ProjectListScreen() {
 
     return (
         <Container>
-            <h1>项目列表</h1>
+            <Row between={true}>
+                <h1>项目列表</h1>
+                {props.projectButton}
+            </Row>
             <SearchPanel param={param} setParam={setParam} users={users || []}></SearchPanel>
             {error ? <Typography.Text type="danger">{error.message}</Typography.Text> : null}
-            <List refresh={retry} loading={isLoading} dataSource={list || []} users={users || []}></List>
+            <List
+                projectButton={props.projectButton}
+                refresh={retry}
+                loading={isLoading}
+                dataSource={list || []}
+                users={users || []}
+            ></List>
         </Container>
     )
 }
