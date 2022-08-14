@@ -13,7 +13,11 @@ interface IProps extends Omit<ISelect, 'value' | 'onChange' | 'defaultOptionName
 export default function IdSelect(props: IProps) {
     const { value, onChange, defaultOptionName, options, ...restProps } = props
     return (
-        <Select value={toNumber(value)} onChange={(value) => onChange(toNumber(value) || undefined)} {...restProps}>
+        <Select
+            value={options?.length ? toNumber(value) : 0}
+            onChange={(value) => onChange(toNumber(value) || undefined)}
+            {...restProps}
+        >
             {defaultOptionName ? <Select.Option value={0}>{defaultOptionName}</Select.Option> : null}
             {options?.map((option) => (
                 <Select.Option key={option.id} value={option.id}>

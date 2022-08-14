@@ -1,27 +1,38 @@
 import { Table, TableProps } from 'antd'
+import Pin from 'components/pin'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
+import { useEditProject } from 'utils/project'
 import { User } from './SearchPanel'
 
 interface IList extends TableProps<Project> {
     users: User[]
+    refresh?: () => void
 }
 
 export interface Project {
-    id: string
+    id: number
     name: string
-    personId: string
+    personId: number
     pin: boolean
     organization: string
     created: number
 }
 
 export default function List({ users, ...props }: IList) {
+    const { mutate } = useEditProject()
+    const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin }).then(props.refresh)
     return (
         <Table
             loading
             pagination={false}
             columns={[
+                {
+                    title: <Pin checked={true} disabled={true} />,
+                    render(value, project) {
+                        return <Pin checked={project.pin} onCheckedChange={pinProject(project.id)} />
+                    }
+                },
                 {
                     title: '名称',
                     sorter: (a, b) => a.name.localeCompare(b.name),
